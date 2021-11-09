@@ -3,15 +3,15 @@ import { App } from '../../../../src/app';
 export class SayCommandCliTrigger {
   public constructor(private readonly app: App) {}
 
-  public callCli(args: string[]): void {
-    this.app.cli.parse(args);
+  public async callCli(args: string[]): Promise<void> {
+    await Promise.resolve(this.app.cli.parse(args));
   }
 
-  public callSay(word?: string): void {
+  public async callSay(word?: string): Promise<void> {
     if (word !== undefined) {
-      this.callCli(['say', word]);
+      await this.callCli(['say', word]);
     } else {
-      this.callCli(['say']);
+      await this.callCli(['say']);
     }
   }
 }

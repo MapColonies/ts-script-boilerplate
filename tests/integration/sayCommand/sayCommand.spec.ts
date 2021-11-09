@@ -33,15 +33,15 @@ describe('sayCommand', function () {
   });
 
   describe('Happy Path', function () {
-    it('logs given word to console', function () {
-      cli.callSay('test');
+    it('logs given word to console', async function () {
+      await cli.callSay('test');
 
       expect(consoleLogMock).toHaveBeenCalledWith('test');
     });
   });
   describe('Bad Path', function () {
-    it('wont log to console when no param is given and exit with error code', function () {
-      cli.callSay();
+    it('wont log to console when no param is given and exit with error code', async function () {
+      await cli.callSay();
 
       expect(processExitMock).toHaveBeenCalledWith(1);
       expect(consoleLogMock).toHaveBeenCalledTimes(0);
