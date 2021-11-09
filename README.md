@@ -1,4 +1,4 @@
-# Map Colonies typescript service template
+# Map Colonies typescript script template
 
 ----------------------------------
 
@@ -10,8 +10,12 @@
 
 ----------------------------------
 
-This is a basic repo template for building new MapColonies web services in Typescript.
+This is a basic repo template for building new MapColonies cli script or cron-job in Typescript.
 
+### Template Usage Notes:
+- the docker file contains default command to use when running container without additional parameters
+- command handlers can be async or sync functions
+- naming command '$0' will make it the default command
 ### Template Features:
 
 - eslint configuration by [@map-colonies/eslint-config](https://github.com/MapColonies/eslint-config)
@@ -29,8 +33,6 @@ This is a basic repo template for building new MapColonies web services in Types
 - git hooks
 
 - logging by [@map-colonies/js-logger](https://github.com/MapColonies/js-logger)
-
-- OpenAPI request validation
 
 - config load with [node-config](https://www.npmjs.com/package/node-config)
 
@@ -55,9 +57,6 @@ This is a basic repo template for building new MapColonies web services in Types
 - lint
 
 - snyk
-
-## API
-Checkout the OpenAPI spec [here](/openapi3.yaml)
 
 ## Installation
 
@@ -97,11 +96,11 @@ npm install
 
 ```
 
-Start the server
+Start the script
 
 ```bash
 
-npm run start
+npm run start -- [parameter1] [parameter 2] [...]
 
 ```
 
