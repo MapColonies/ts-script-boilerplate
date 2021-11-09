@@ -8,7 +8,7 @@ export class HelloWorldCommandCliTrigger {
   }
 
   public async callAlias(): Promise<void> {
-      await this.callCli(['helloWorld']);
+    await this.callCli(['helloWorld']);
   }
 
   public async callDefault(): Promise<void> {

@@ -12,9 +12,11 @@ import { HelloWorldCommand } from './helloWorldCommand/helloWorld';
 export class App {
   public cli: Argv;
 
-  public constructor(@inject(SERVICES.LOGGER) private readonly logger: Logger, 
-  private readonly sayCommand: SayCommand,
-  private readonly helloWorldCommand: HelloWorldCommand) {
+  public constructor(
+    @inject(SERVICES.LOGGER) private readonly logger: Logger,
+    private readonly sayCommand: SayCommand,
+    private readonly helloWorldCommand: HelloWorldCommand
+  ) {
     this.cli = this.createYargsCli();
   }
 

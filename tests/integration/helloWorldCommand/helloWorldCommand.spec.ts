@@ -14,7 +14,7 @@ describe('helloWorldCommand', function () {
     consoleLogMock = jest.spyOn(global.console, 'log');
     consoleLogMock.mockReturnValue(undefined);
     jest.spyOn(global.console, 'error').mockReturnValue(undefined); // prevent cli error logs from messing with test log on bad path tests
-    processExitMock = jest.spyOn(global.process, 'exit'); 
+    processExitMock = jest.spyOn(global.process, 'exit');
     processExitMock.mockReturnValueOnce(undefined); //prevent cli exit from killing the test
 
     const app = getApp({
