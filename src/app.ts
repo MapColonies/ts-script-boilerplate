@@ -15,8 +15,8 @@ export class App {
     this.cli = this.createYargsCli();
   }
 
-  public run(args: string[]): void {
-    this.cli.parse(hideBin(args));
+  public async run(args: string[]): Promise<void> {
+    await Promise.resolve(this.cli.parse(hideBin(args)));
   }
 
   private createYargsCli(): Argv {
