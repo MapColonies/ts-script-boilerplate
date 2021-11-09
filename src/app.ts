@@ -6,12 +6,15 @@ import { Argv } from 'yargs';
 import { SERVICES } from './common/constants';
 import { SayCommand } from './sayCommand/sayCommand';
 import { registerExternalValues, RegisterOptions } from './containerConfig';
+import { HelloWorldCommand } from './helloWorldCommand/helloWorld';
 
 @singleton()
 export class App {
   public cli: Argv;
 
-  public constructor(@inject(SERVICES.LOGGER) private readonly logger: Logger, private readonly sayCommand: SayCommand) {
+  public constructor(@inject(SERVICES.LOGGER) private readonly logger: Logger, 
+  private readonly sayCommand: SayCommand,
+  private readonly helloWorldCommand: HelloWorldCommand) {
     this.cli = this.createYargsCli();
   }
 
@@ -22,15 +25,7 @@ export class App {
   private createYargsCli(): Argv {
     return yargs()
       .usage('Usage: $0 <command> [options]')
-      .command(
-        '$0',
-        'the default command',
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        () => {},
-        () => {
-          console.log('hello world');
-        }
-      )
+      .command(this.helloWorldCommand)
       .command(this.sayCommand)
       .help('h')
       .alias('h', 'help')

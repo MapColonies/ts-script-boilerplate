@@ -1,5 +1,5 @@
 import { Argv } from 'yargs';
-import { SayCommand } from '../../../src/sayCommand/sayCommand';
+import { HelloWorldCommand } from '../../../src/helloWorldCommand/helloWorld';
 
 describe('sayCommand', () => {
   const positionalMock = jest.fn();
@@ -7,10 +7,10 @@ describe('sayCommand', () => {
     positional: positionalMock,
   } as unknown as Argv;
   let consoleLogMock: jest.SpyInstance;
-  let command: SayCommand;
+  let command: HelloWorldCommand;
   beforeEach(() => {
     consoleLogMock = jest.spyOn(global.console, 'log');
-    command = new SayCommand();
+    command = new HelloWorldCommand();
   });
 
   afterEach(() => {
@@ -19,21 +19,20 @@ describe('sayCommand', () => {
   });
 
   describe('handler', () => {
-    it('logs word parameter', () => {
+    it('logs word parameter', async () => {
       consoleLogMock.mockReturnValue(undefined);
 
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      command.handler({ word: 'test', _: [], $0: 'testScript' });
+      await command.handler();
 
-      expect(consoleLogMock).toHaveBeenCalledWith('test');
+      expect(consoleLogMock).toHaveBeenCalledWith('hello world');
     });
   });
 
   describe('builder', () => {
-    it('defines positional parameter word', () => {
+    it('defines positional parameter word was not called', () => {
       command.builder(yargsMock);
 
-      expect(positionalMock).toHaveBeenCalledWith('word', expect.any(Object));
+      expect(positionalMock).toHaveBeenCalledTimes(0);
     });
   });
 });
