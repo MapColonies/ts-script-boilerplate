@@ -2,6 +2,7 @@
 {{- $chartName := include "ts-script-boilerplate.name" . -}}
 {{- $cloudProviderFlavor := include "ts-script-boilerplate.cloudProviderFlavor" . -}}
 {{- $cloudProviderDockerRegistryUrl := include "ts-script-boilerplate.cloudProviderDockerRegistryUrl" . -}}
+{{- $imageTag := include "ts-server-boilerplate.tag" . -}}
 {{- if .Values.enabled -}}
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -26,7 +27,7 @@ spec:
           containers:
             - name: {{ $releaseName }}-{{ $chartName }}-deployment
               {{- with .Values.image }}
-              image: {{ $cloudProviderDockerRegistryUrl }}{{ .repository }}:{{ .tag }}
+              image: {{ $cloudProviderDockerRegistryUrl }}{{ .repository }}:{{ $imageTag }}
               {{- end }}
               envFrom:
                 - configMapRef:
