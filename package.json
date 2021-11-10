@@ -10,7 +10,6 @@
     "format:fix": "prettier --write .",
     "prelint:fix": "npm run format:fix",
     "prelint": "npm run format",
-    "lint:openapi": "openapi lint ./openapi3.yaml",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "release": "standard-version",
@@ -18,7 +17,7 @@
     "prebuild": "npm run clean",
     "build": "tsc --project tsconfig.build.json  && npm run assets:copy",
     "start": "npm run build && cd dist && node ./index.js",
-    "assets:copy": "copyfiles -f ./config/* ./dist/config && copyfiles -f ./openapi3.yaml ./dist/ && copyfiles ./package.json dist",
+    "assets:copy": "copyfiles -f ./config/* ./dist/config && copyfiles ./package.json dist",
     "clean": "rimraf dist",
     "install": "npx husky install"
   },
