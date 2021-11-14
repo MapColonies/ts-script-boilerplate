@@ -6,26 +6,25 @@ global:
 
 enabled: true
 environment: development
-replicaCount: 1
-initialDelaySeconds: 60
-nodePort: 30030 #for minikube deployment only
 
 cloudProvider:
   dockerRegistryUrl: my-registry-url.io
   flavor: openshift
 
 image:
-  repository: ts-server-boilerplate
+  repository: ts-script-boilerplate
   tag: 'latest'
 
+cron:
+  schedule:  '0 0 * * *'
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  concurrencyPolicy: Forbid
+  restartPolicy: OnFailure
+
 env:
-  port: 8080
-  targetPort: 8080
-  protocol: TCP
   logLevel: info
   logPrettyPrintEnabled: false
-  responseCompressionEnabled: true
-  requestPayloadLimit: 1mb
   tracing:
     enabled: false
     url: http://localhost:55681/v1/trace
@@ -43,17 +42,3 @@ resources:
       cpu: 100m
       memory: 128Mi
 
-route:
-  enabled: true
-  path: /
-  timeout:
-    enabled: false # defaults to 30s by openshift
-    duration: 60s # supported units (us, ms, s, m, h, d)
-
-ingress:
-  enabled: false
-  path: /
-  host: 'localhost'
-  cors:
-    enabled: true
-    origin: '*'
