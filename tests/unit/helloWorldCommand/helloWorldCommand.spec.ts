@@ -1,16 +1,20 @@
 import { Argv } from 'yargs';
-import { HelloWorldCommand } from '../../../src/helloWorldCommand/helloWorld';
+import { HelloWorldCommand } from '../../../src/helloWorldCommand/helloWorldCommand';
+import { HelloWorldManager } from '../../../src/helloWorldCommand/helloWorldManager';
 
 describe('sayCommand', () => {
   const positionalMock = jest.fn();
   const yargsMock = {
     positional: positionalMock,
   } as unknown as Argv;
-  let consoleLogMock: jest.SpyInstance;
   let command: HelloWorldCommand;
+  const sayHelloMock = jest.fn();
+  const managerMock = {
+    sayHello: sayHelloMock,
+  } as unknown as HelloWorldManager;
+
   beforeEach(() => {
-    consoleLogMock = jest.spyOn(global.console, 'log');
-    command = new HelloWorldCommand();
+    command = new HelloWorldCommand(managerMock);
   });
 
   afterEach(() => {
@@ -19,12 +23,10 @@ describe('sayCommand', () => {
   });
 
   describe('handler', () => {
-    it('logs word parameter', async () => {
-      consoleLogMock.mockReturnValue(undefined);
-
+    it('calls sayHallo', async () => {
       await command.handler();
 
-      expect(consoleLogMock).toHaveBeenCalledWith('hello world');
+      expect(sayHelloMock).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -6,7 +6,7 @@ import { Argv } from 'yargs';
 import { SERVICES } from './common/constants';
 import { SayCommand } from './sayCommand/sayCommand';
 import { registerExternalValues, RegisterOptions } from './containerConfig';
-import { HelloWorldCommand } from './helloWorldCommand/helloWorld';
+import { HelloWorldCommand } from './helloWorldCommand/helloWorldCommand';
 
 @singleton()
 export class App {

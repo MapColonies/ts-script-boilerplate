@@ -1,16 +1,20 @@
 import { Argv } from 'yargs';
 import { SayCommand } from '../../../src/sayCommand/sayCommand';
+import { SayManager } from '../../../src/sayCommand/sayManager';
 
 describe('sayCommand', () => {
   const positionalMock = jest.fn();
   const yargsMock = {
     positional: positionalMock,
   } as unknown as Argv;
-  let consoleLogMock: jest.SpyInstance;
   let command: SayCommand;
+  const sayMock = jest.fn();
+  const managerMock = {
+    say: sayMock,
+  } as unknown as SayManager;
+
   beforeEach(() => {
-    consoleLogMock = jest.spyOn(global.console, 'log');
-    command = new SayCommand();
+    command = new SayCommand(managerMock);
   });
 
   afterEach(() => {
@@ -19,13 +23,11 @@ describe('sayCommand', () => {
   });
 
   describe('handler', () => {
-    it('logs word parameter', () => {
-      consoleLogMock.mockReturnValue(undefined);
-
+    it('calls say', () => {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       command.handler({ word: 'test', _: [], $0: 'testScript' });
 
-      expect(consoleLogMock).toHaveBeenCalledWith('test');
+      expect(sayMock).toHaveBeenCalledWith('test');
     });
   });
 
