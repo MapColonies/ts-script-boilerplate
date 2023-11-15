@@ -15,10 +15,9 @@ export interface RegisterOptions {
 
 export const registerExternalValues = (options?: RegisterOptions): DependencyContainer => {
   const loggerConfig = config.get<LoggerOptions>('telemetry.logger');
-  // @ts-expect-error the signature is wrong
   const logger = jsLogger({ ...loggerConfig, prettyPrint: loggerConfig.prettyPrint, hooks: { logMethod } });
 
-  const metrics = new Metrics(SERVICE_NAME);
+  const metrics = new Metrics();
   const meter = metrics.start();
 
   tracing.start();
